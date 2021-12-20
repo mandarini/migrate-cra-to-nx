@@ -4,65 +4,35 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/web:webpack",
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": ["dist/apps/webapp"],
       "options": {
-        "compiler": "babel",
-        "outputPath": "dist/apps/webapp",
-        "index": "apps/webapp/src/index.html",
-        "baseHref": "/",
-        "main": "apps/webapp/src/main.tsx",
-        "polyfills": "apps/webapp/src/polyfills.ts",
-        "tsConfig": "apps/webapp/tsconfig.app.json",
-        "assets": ["apps/webapp/src/favicon.ico", "apps/webapp/src/assets"],
-        "styles": ["apps/webapp/src/styles.css"],
-        "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
-      },
-      "configurations": {
-        "production": {
-          "fileReplacements": [
-            {
-              "replace": "apps/webapp/src/environments/environment.ts",
-              "with": "apps/webapp/src/environments/environment.prod.ts"
-            }
-          ],
-          "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false
-        }
+        "command": "node ../../node_modules/.bin/react-app-rewired build",
+        "cwd": "apps/webapp"
       }
     },
     "serve": {
-      "executor": "@nrwl/web:dev-server",
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
       "options": {
-        "buildTarget": "webapp:build",
-        "hmr": true
-      },
-      "configurations": {
-        "production": {
-          "buildTarget": "webapp:build:production",
-          "hmr": false
-        }
+        "command": "node ../../node_modules/.bin/react-app-rewired start",
+        "cwd": "apps/webapp"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
       "options": {
-        "lintFilePatterns": ["apps/webapp/**/*.{ts,tsx,js,jsx}"]
+        "command": "node ../../node_modules/.bin/eslint src/**/*.tsx src/**/*.ts",
+        "cwd": "apps/webapp"
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/webapp"],
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
       "options": {
-        "jestConfig": "apps/webapp/jest.config.js",
-        "passWithNoTests": true
+        "command": "node ../../node_modules/.bin/react-app-rewired test --watchAll=false",
+        "cwd": "apps/webapp"
       }
     }
   },
