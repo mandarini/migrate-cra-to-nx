@@ -1,13 +1,17 @@
-import './ui-button.module.css';
+import { ReactNode } from 'react';
+import styles from './ui-button.module.css';
 
 /* eslint-disable-next-line */
-export interface UiButtonProps {}
+export interface UiButtonProps {
+  children?: ReactNode;
+  onClick: () => void;
+}
 
 export function UiButton(props: UiButtonProps) {
   return (
-    <div>
-      <h1>Welcome to UiButton!</h1>
-    </div>
+    <button onClick={props.onClick} className={styles['button']}>
+      {props.children}
+    </button>
   );
 }
 
